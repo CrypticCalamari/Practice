@@ -31,13 +31,11 @@ def semi_correct_partition(a, lo, hi):
 
 # Correct version
 def partition(a, lo, hi):
-	print(lo, a[lo:(hi+1)], hi)
 	p = a[lo]
 	i = lo
 	j = hi
 	while i < j:
 		while i < len(a) and a[i] <= p:
-		#while a[i] <= p:
 			i += 1
 		while a[j] > p:
 			j -= 1
@@ -45,7 +43,6 @@ def partition(a, lo, hi):
 			a[i], a[j] = a[j], a[i]
 	a[lo] = a[j]
 	a[j] = p
-	print(lo, a[lo:(hi+1)], hi)
 	return j
 
 def quicksort(a, lo, hi):
@@ -55,17 +52,53 @@ def quicksort(a, lo, hi):
 		quicksort(a, p+1, hi)
 
 size = int(sys.argv[1])
-test = [] #list(range(size))
-#random.shuffle(test)
+test = []
+
+print("--------------------------------------------------------------------------------")
 for i in range(size):
 	test.append(random.randrange(size))
-
-print("--------------------------------------------------------")
 print("Random Test")
-print(test)
+if size < 32: print(test)
 begin = time.time()
 quicksort(test, 0, len(test)-1)
 end = time.time()
-print(test)
-print("Time:", int(round((end - begin) * 1000000)), "ms")
-print("--------------------------------------------------------")
+if size < 32: print(test)
+print("Time:", int(round(end - begin)), "s")
+print("Time:", int(round((end - begin) * 1000)), "ms")
+print("Time:", int(round((end - begin) * 1000000)), "μs")
+print("Time:", int(round((end - begin) * 1000000000)), "ns")
+print("--------------------------------------------------------------------------------")
+
+print("--------------------------------------------------------------------------------")
+test = list(range(size))
+random.shuffle(test)
+print("Distinct Shuffle Test")
+if size < 32: print(test)
+begin = time.time()
+quicksort(test, 0, len(test)-1)
+end = time.time()
+if size < 32: print(test)
+print("Time:", int(round(end - begin)), "s")
+print("Time:", int(round((end - begin) * 1000)), "ms")
+print("Time:", int(round((end - begin) * 1000000)), "μs")
+print("Time:", int(round((end - begin) * 1000000000)), "ns")
+print("--------------------------------------------------------------------------------")
+
+test.reverse()
+print("--------------------------------------------------------------------------------")
+print("Distinct Reverse Test")
+if size < 32: print(test)
+begin = time.time()
+quicksort(test, 0, len(test)-1)
+end = time.time()
+if size < 32: print(test)
+print("Time:", int(round(end - begin)), "s")
+print("Time:", int(round((end - begin) * 1000)), "ms")
+print("Time:", int(round((end - begin) * 1000000)), "μs")
+print("Time:", int(round((end - begin) * 1000000000)), "ns")
+print("--------------------------------------------------------------------------------")
+
+
+
+
+
